@@ -1,7 +1,5 @@
 <template>
-  <router-link class="Back" to="/">
-    返回首页
-  </router-link>
+<div>返回首页</div>
 </template>
 
 <script lang="ts">

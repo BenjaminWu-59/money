@@ -28,7 +28,7 @@ import Vue from 'vue'
 import {Component} from 'vue-property-decorator';
 @Component
 export default class Account extends Vue {
-  template: '#wave'
+  template!: '#wave'
   show = true
   onClick( )  {
     this.show = !this.show
@@ -82,8 +82,8 @@ export default class Account extends Vue {
      justify-content: center;
      align-items: center;
      background: black;
-     box-shadow: 0 0 0 1px hsla(240, 0%, 100%, .3) inset,
-     0 .5em 1em rgba(0, 0, 0, 0.35);
+     box-shadow: 1px 1px 1px 1px hsla(240, 0%, 100%, 0.1) inset,
+     0 0 1em rgba(0, 0, 0, 0.3);
      position: absolute;
      width: 70px;
      height: 70px;
@@ -104,7 +104,7 @@ export default class Account extends Vue {
       transform: scale(0);
     }
     50% {
-      transform: scale(1.2);
+      transform: scale(1.1);
     }
     100% {
       transform: scale(1);
