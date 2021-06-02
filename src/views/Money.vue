@@ -1,12 +1,12 @@
 <template>
-    <Layout>
-      <p>statistics.vue</p>
-    </Layout>
+  <router-link class="Back" to="/">
+    返回首页
+  </router-link>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'Statistics'
+  name: 'Money'
 };
 </script>
 
