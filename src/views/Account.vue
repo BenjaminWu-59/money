@@ -1,6 +1,5 @@
 <template>
   <Layout class="Layout">
-    <div>
       <div class="header">
         <img src="../assets/picture/rain4.jpeg" alt="图片不见了">
         <div class="link1">雨点记账</div>
@@ -19,7 +18,6 @@
           </transition>
         </div>
       </div>
-    </div>
   </Layout>
 </template>
 

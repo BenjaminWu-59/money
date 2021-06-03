@@ -28,9 +28,10 @@ nav {
   flex-direction: row;
   font-size: 12px;
   background: white;
+  min-width: 100vw;
   > .item {
+    flex: 1;
     padding: 2px 0;
-    width: 33.33333%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,4 +45,5 @@ nav {
     color: #6b8fac;
   }
 }
+
 </style>

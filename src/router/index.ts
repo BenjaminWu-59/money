@@ -13,28 +13,43 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
     {
         path: '/',
-        redirect:'/account'
+        redirect:'/account',
+        meta:{
+            title:"主页",
+            tx:1
+        },
     },
     {
 
         path: '/account',
-        component: Account
-    },
-    {
-        path: '/labels',
-        component: Labels
-    },
-    {
-        path: '/statistics',
-        component: Statistics
+        component: Account,
+        meta:{
+            title:"主页",
+            tx:1
+        },
     },
     {
         path: '/money',
-        component: Money
+        component: Money,
+        meta:{
+            title:"记账",
+            tx:2
+        },
+    },
+    {
+        path: '/labels',
+        component: Labels,
+
+    },
+    {
+        path: '/statistics',
+        component: Statistics,
+
     },
     {
         path:'*',
-        component:NotFound
+        component:NotFound,
+
     },
 
 
