@@ -5,6 +5,7 @@ import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
 import NotFound from '@/components/NotFound.vue';
 import Money from '@/views/Money.vue';
+import Dialog from '@/practice/Dialog.vue';
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ const routes: Array<RouteConfig> = [
     {
         path: '/labels',
         component: Labels,
+
+    },
+    {
+        path: '/dialog',
+        component: Dialog,
 
     },
     {
