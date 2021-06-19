@@ -1,33 +1,43 @@
 <template>
-  <div class="control">
-    <button id="myBtn" @click="isShow=!isShow">打开弹窗</button>
-    <div id="myModal" class="modal" v-show="isShow">
-      <div class="modal-content">
-        <div class="modalHeader">
-          备注
-        </div>
-        <div class="modalInput">
-          <input type="text" class="Put" placeholder="客官在这里写点啥">
-        </div>
-        <div class="modalFoot">
-          <div class="footButton">确认</div>
-          <div class="footButton" @click="isShow=!isShow">取消</div>
-        </div>
+  <div>
+  <div id="myModal" class="modal" v-show="isShow">
+    <div class="modal-content">
+      <div class="modalHeader">
+        备注
       </div>
-
+      <div class="modalInput">
+        <input type="text" v-model="Content" @change="setNote" class="Put" placeholder="客官在这里写点啥">
+      </div>
+      <div class="modalFoot">
+        <div class="footButton" @click="fn2">确认</div>
+        <div class="footButton" @click="fn">取消</div>
+      </div>
     </div>
+  </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Dialog',
-  data() {
-    return {
-      isShow: false
+  data(){
+    return{
+      Content:''
     }
   },
-  methods: {}
+  props:{
+      isShow:{
+        type:Boolean,
+        default:false
+      },
+     fn:Function,
+     fn2:Function
+  },
+  methods: {
+    setNote(){
+      this.$emit('transferNote',this.Content)
+    }
+  }
 };
 </script>
 
@@ -57,11 +67,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2ca5d2;
+    background:  #272a3b;
     border-top-left-radius: 14px;
     border-top-right-radius: 14px;
     height: 50px;
-    color:white;
+    color: white;
     font-size: large;
 
   }
@@ -104,16 +114,18 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex:1;
+    flex: 1;
     padding: 0;
     border-bottom-left-radius: 14px;
     border-bottom-right-radius: 14px;
-    height: 70px;
-    .footButton{
-      margin: 30px;
-      padding:5px 15px 5px 15px;
-      border-radius:5px;
-      background: #2ca5d2;
+    height: 80px;
+
+    .footButton {
+      margin: 20px;
+      font-size: 17px;
+      padding: 5px 15px 5px 15px;
+      border-radius: 5px;
+      background: #272a3b;
       color: white;
     }
   }

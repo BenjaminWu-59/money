@@ -1,6 +1,12 @@
 <template>
   <div class="numberPad">
-    <div class="output">{{ output }}</div>
+    <div class="output">
+      <div class="note" >
+        <span @click="show=!show"><Icon name="notes"/></span>
+        <Dialog :isShow="show" :fn="hideModal" :fn2="submit" @transferNote="getNote"/>
+      </div>
+      {{ output }}
+    </div>
     <div class="buttons">
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
@@ -27,6 +33,18 @@ import {Component} from 'vue-property-decorator';
 @Component
 export default class NumberPads extends Vue {
   output = '0';
+  show = false;
+  noteContent='';
+  hideModal(){
+    this.show = false
+  }
+  getNote(value:string){
+    this.noteContent = value
+  }
+  submit(){
+    console.log(this.noteContent)
+    this.show=false
+  }
 
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement);
@@ -72,6 +90,10 @@ export default class NumberPads extends Vue {
     border: 0.5px solid #cacaca;
     background: #e3e3e3;
     height: 62px;
+    position:relative;
+   .note {
+    position:absolute;
+   }
   }
 
   .buttons {
