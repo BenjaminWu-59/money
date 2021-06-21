@@ -1,12 +1,12 @@
 <template>
   <div class="content">
     <NumberPads/>
-    <Tags/>
+    <Tags :dataSource="tags" />
     <Types/>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import NumberPads from '@/components/Money/NumberPads.vue';
 import Types from '@/components/Money/Types.vue';
 import Tags from '@/components/Money/Tags.vue';
@@ -14,6 +14,11 @@ import Tags from '@/components/Money/Tags.vue';
 export default {
   name: 'Money',
   components: {Tags, Types, NumberPads},
+  data(){
+    return{
+       tags:['衣','食','住','行','彩票']
+    }
+  }
 };
 </script>
 
