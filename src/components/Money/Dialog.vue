@@ -3,7 +3,7 @@
   <div id="myModal" class="modal" v-show="isShow">
     <div class="modal-content">
       <div class="modalHeader">
-        备注
+        <slot></slot>
       </div>
       <div class="modalInput">
         <input type="text" v-model="Content" @change="setNote" class="Put" placeholder="客官在这里写点啥" >

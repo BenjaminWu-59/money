@@ -3,7 +3,9 @@
     <div class="output">
       <div class="note" >
         <span @click="open"><Icon name="notes"/></span>
-        <Dialog :isShow="show" :fn="hideModal" :fn2="submit" @transferNote="getNote"/>
+        <Dialog :isShow="show" :fn="hideModal" :fn2="submit" @transferNote="getNote">
+          备注
+          </Dialog>
       </div>
       {{ output }}
     </div>
@@ -19,7 +21,7 @@
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button class="ok">OK</button>
+      <button class="ok" @click="ok">OK</button>
       <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent">.</button>
     </div>
@@ -28,13 +30,17 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component,Watch} from 'vue-property-decorator';
 
 @Component
 export default class NumberPads extends Vue {
   output = '0';
   show = false;
   noteContent='';
+  @Watch('noteContent')
+  onValueChanged(value:string){
+    this.$emit('update:note',value)
+  }
   open(){
     this.show = true
     this.noteContent=''
@@ -82,6 +88,11 @@ export default class NumberPads extends Vue {
   clear() {
     this.output = '0';
   }
+
+  ok(){
+     this.$emit('update:value',this.output)
+  }
+
 }
 </script>
 
@@ -132,6 +143,14 @@ export default class NumberPads extends Vue {
         grid-column-start: 1;
         grid-column-end: 3;
       }
+    }
+    > button:active{
+      font-size: 22px;
+      background: #d4d6d6;
+      opacity: 0.5;
+      margin: 3px;
+      border: 1px solid #4e4d4d;
+      border-radius: 4px;
     }
   }
 }
