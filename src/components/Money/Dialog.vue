@@ -6,7 +6,7 @@
         备注
       </div>
       <div class="modalInput">
-        <input type="text" v-model="Content" @change="setNote" class="Put" placeholder="客官在这里写点啥">
+        <input type="text" v-model="Content" @change="setNote" class="Put" placeholder="客官在这里写点啥" >
       </div>
       <div class="modalFoot">
         <div class="footButton" @click="fn2">确认</div>
@@ -35,7 +35,8 @@ export default {
   },
   methods: {
     setNote(){
-      this.$emit('transferNote',this.Content)
+        this.$emit('transferNote',this.Content)
+        this.Content=''
     }
   }
 };
@@ -62,6 +63,7 @@ export default {
   width: 80%;
   border-radius: 14px;
   box-shadow: 0 0 3px #4f4f4f;
+  animation:window-open 0.2s 1;
 
   .modalHeader {
     display: flex;
@@ -128,6 +130,19 @@ export default {
       background: #272a3b;
       color: white;
     }
+  }
+}
+
+@keyframes window-open
+{
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(0, 0, 1);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
   }
 }
 

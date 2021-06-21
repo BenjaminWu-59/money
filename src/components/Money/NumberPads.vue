@@ -2,7 +2,7 @@
   <div class="numberPad">
     <div class="output">
       <div class="note" >
-        <span @click="show=!show"><Icon name="notes"/></span>
+        <span @click="open"><Icon name="notes"/></span>
         <Dialog :isShow="show" :fn="hideModal" :fn2="submit" @transferNote="getNote"/>
       </div>
       {{ output }}
@@ -35,6 +35,10 @@ export default class NumberPads extends Vue {
   output = '0';
   show = false;
   noteContent='';
+  open(){
+    this.show = true
+    this.noteContent=''
+  }
   hideModal(){
     this.show = false
   }
@@ -42,8 +46,12 @@ export default class NumberPads extends Vue {
     this.noteContent = value
   }
   submit(){
-    console.log(this.noteContent)
-    this.show=false
+    if(this.noteContent ===''){
+      window.alert('备注不能为空')
+    }else{
+      console.log(this.noteContent)
+      this.show=false
+    }
   }
 
   inputContent(event: MouseEvent) {

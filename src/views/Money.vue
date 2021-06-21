@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <NumberPads/>
-    <Tags :dataSource="tags" />
+    <Tags :data-source.sync="tags" />
     <Types/>
   </div>
 </template>
