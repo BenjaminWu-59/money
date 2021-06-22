@@ -30,11 +30,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component,Watch} from 'vue-property-decorator';
+import {Component,Watch,Prop} from 'vue-property-decorator';
 
 @Component
 export default class NumberPads extends Vue {
-  output = '0';
+  @Prop() readonly value!: number;
+  output = this.value.toString();
   show = false;
   noteContent='';
   @Watch('noteContent')
@@ -91,6 +92,8 @@ export default class NumberPads extends Vue {
 
   ok(){
      this.$emit('update:value',this.output)
+    this.$emit('submit',this.output)
+    this.output = '0'
   }
 
 }
