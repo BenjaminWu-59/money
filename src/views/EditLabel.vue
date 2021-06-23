@@ -9,6 +9,7 @@
       <div class="formItem">
         <span class="name">标签名</span>
         <input type="text"
+               :value="tag.name"
                placeholder="请输入标签名">
       </div>
     </div>
@@ -30,13 +31,15 @@ import Btn from '@/components/Btn.vue';
   components: {Btn}
 })
 export default class EditLabel extends Vue {
+ tag?:{id:string,name:string} = undefined
+
   created() {//将路由和标签串联，是标签单独变成可访问页面
     const id = this.$route.params.id;
     tagListModel.fetch();
     const tags = tagListModel.data;
     const tag = tags.filter(t => t.id === id)[0];
     if (tag) {
-      console.log(tag);
+     this.tag = tag
     } else {
       this.$router.replace('/404');
     }
