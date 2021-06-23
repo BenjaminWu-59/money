@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
-    <div class="new" @click="create">
-      <button>新增标签</button>
+    <div class="new" >
+      <button @click="goTo">新增标签</button>
     </div>
     <ul class="current">
       <li v-for="tag in dataSource" :key="tag.id"
@@ -41,7 +41,12 @@ export default class Tags extends Vue {
      }
      console.log(name)
    }
+
+  goTo(){
+    this.$router.push('/labels')
+  }
 }
+
 </script>
 
 <style lang="scss" scoped>
