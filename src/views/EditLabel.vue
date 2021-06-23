@@ -10,11 +10,12 @@
         <span class="name">标签名</span>
         <input type="text"
                :value="tag.name"
+               @input="update($event.target.value)"
                placeholder="请输入标签名">
       </div>
     </div>
     <div class="button-wrapper">
-      <Btn>
+      <Btn @click="remvoe">
         删除标签
       </Btn>
     </div>
@@ -44,7 +45,14 @@ export default class EditLabel extends Vue {
       this.$router.replace('/404');
     }
   }
-
+  update(value) {
+    if (this.tag) {
+      tagListModel.update(this.tag.id, value);
+    }
+  }
+  remvoe(){
+    tagListModel.remove(this.tag.id)
+  }
   goBack() {
     this.$router.back();
   }
