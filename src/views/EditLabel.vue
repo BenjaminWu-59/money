@@ -47,13 +47,19 @@ export default class EditLabel extends Vue {
       this.$router.replace('/404');
     }
   }
-  update(value) {
+  update(value:string) {
     if (this.tag) {
       tagListModel.update(this.tag.id, value);
     }
   }
   remvoe(){
-    tagListModel.remove(this.tag.id)
+    if (this.tag) {
+      if (tagListModel.remove(this.tag.id)) {
+        this.$router.back();
+      } else {
+        window.alert('删除失败');
+      }
+    }
   }
   goBack() {
     this.$router.back();
