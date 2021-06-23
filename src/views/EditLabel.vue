@@ -1,7 +1,9 @@
 <template>
   <Layout>
     <div class="navBar">
-      <Icon class="leftIcon" name="left" @click="goBack"/>
+      <div class="back" @click="goBack">
+      <Icon class="leftIcon" name="left"/>
+      </div>
       <span class="title">编辑标签</span>
       <span class="rightIcon"></span>
     </div>
@@ -92,11 +94,13 @@ export default class EditLabel extends Vue {
   > .title {
   }
 
-  > .leftIcon {
-   position:absolute;
-    width: 24px;
-    height: 24px;
-    left:5px;
+  >.back {
+    position: absolute;
+    left: 8px;
+    > .leftIcon {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
 

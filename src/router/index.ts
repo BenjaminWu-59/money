@@ -17,27 +17,15 @@ const routes: Array<RouteConfig> = [
     {
         path: '/',
         redirect:'/account',
-        meta:{
-            title:"主页",
-            tx:1
-        },
     },
     {
 
         path: '/account',
         component: Account,
-        meta:{
-            title:"主页",
-            tx:1
-        },
     },
     {
         path: '/money',
         component: Money,
-        meta:{
-            title:"记账",
-            tx:2
-        },
     },
     {
         path: '/labels',
