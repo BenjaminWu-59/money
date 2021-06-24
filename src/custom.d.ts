@@ -22,6 +22,10 @@ type TagListModel = {
 
 
 
-interface Window{
+interface Window {
     tagList: Tag[]
+    createTag: (name: string) => void
+    findTag:(id:string) => Tag
+    removeTag: (id: string) => boolean
+    updateTag: TagListModel['update']
 }

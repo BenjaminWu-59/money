@@ -27,7 +27,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import tagListModel from '@/models/tLM';
 import Btn from '@/components/Btn.vue';
 
 @Component({
@@ -36,25 +35,21 @@ import Btn from '@/components/Btn.vue';
 export default class EditLabel extends Vue {
  tag?:{id:string,name:string} = undefined
 
-  created() {//将路由和标签串联，是标签单独变成可访问页面
-    const id = this.$route.params.id;
-    tagListModel.fetch();
-    const tags = tagListModel.data;
-    const tag = tags.filter(t => t.id === id)[0];
-    if (tag) {
-     this.tag = tag
-    } else {
+  created() {//将路由和标签串联，使得标签单独变成可访问页面
+    this.tag = window.findTag(this.$route.params.id);
+    if (!this.tag) {
       this.$router.replace('/404');
     }
   }
+
   update(value:string) {
     if (this.tag) {
-      tagListModel.update(this.tag.id, value);
+      window.updateTag(this.tag.id, value);
     }
   }
   remvoe(){
     if (this.tag) {
-      if (tagListModel.remove(this.tag.id)) {
+      if (window.removeTag(this.tag.id)) {
         this.$router.back();
       } else {
         window.alert('删除失败');
