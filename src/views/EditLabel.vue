@@ -33,7 +33,7 @@ import Btn from '@/components/Btn.vue';
   components: {Btn}
 })
 export default class EditLabel extends Vue {
- tag?:{id:string,name:string} = undefined
+ tag?:Tag = undefined
 
   created() {//将路由和标签串联，使得标签单独变成可访问页面
     this.tag = window.findTag(this.$route.params.id);
