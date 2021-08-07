@@ -28,6 +28,7 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Btn from '@/components/Btn.vue';
+import store from '@/store/index2';
 
 @Component({
   components: {Btn}
@@ -36,7 +37,7 @@ export default class EditLabel extends Vue {
  tag?:Tag = undefined
 
   created() {//将路由和标签串联，使得标签单独变成可访问页面
-    this.tag = window.findTag(this.$route.params.id);
+    this.tag = store.findTag(this.$route.params.id);
     if (!this.tag) {
       this.$router.replace('/404');
     }
@@ -44,12 +45,12 @@ export default class EditLabel extends Vue {
 
   update(value:string) {
     if (this.tag) {
-      window.updateTag(this.tag.id, value);
+      store.updateTag(this.tag.id, value);
     }
   }
   remvoe(){
     if (this.tag) {
-      if (window.removeTag(this.tag.id)) {
+      if (store.removeTag(this.tag.id)) {
         this.$router.back();
       } else {
         window.alert('删除失败');
