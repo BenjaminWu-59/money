@@ -8,6 +8,7 @@ import Layout from '@/components/Layout.vue';
 import Icon from '@/components/Icon.vue';
 import Dialog from '@/components/Money/Dialog.vue';
 import tagListModel from '@/models/tLM';
+import recordListModel from '@/models/recordListModel';
 
 Vue.config.productionTip = false;
 
@@ -16,6 +17,13 @@ Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 Vue.component('Dialog', Dialog);
 
+//record store
+window.recordList = recordListModel.fetch()
+window.createRecord = (record:RecordItem)=> recordListModel.create(record)
+
+
+
+//tag store
 window.tagList = tagListModel.fetch();
 window.findTag = (id:string) => {
     return window.tagList.filter(t => t.id === id)[0]
