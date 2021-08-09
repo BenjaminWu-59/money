@@ -5,7 +5,7 @@
       <Icon class="leftIcon" name="left"/>
       </div>
       <span class="title">编辑标签</span>
-      <span class="rightIcon"></span>
+      <span class="rightIcon"/>
     </div>
     <div class="form-wrapper">
       <div class="formItem">
@@ -28,7 +28,6 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Btn from '@/components/Btn.vue';
-import store from '@/store/index2';
 
 @Component({
   components: {Btn}
@@ -37,7 +36,8 @@ export default class EditLabel extends Vue {
  tag?:Tag = undefined
 
   created() {//将路由和标签串联，使得标签单独变成可访问页面
-    this.tag = store.findTag(this.$route.params.id);
+    //TODO
+    // this.tag = store.findTag(this.$route.params.id);
     if (!this.tag) {
       this.$router.replace('/404');
     }
@@ -45,16 +45,18 @@ export default class EditLabel extends Vue {
 
   update(value:string) {
     if (this.tag) {
-      store.updateTag(this.tag.id, value);
+      //TODO
+      // store.updateTag(this.tag.id, value);
     }
   }
   remvoe(){
     if (this.tag) {
-      if (store.removeTag(this.tag.id)) {
-        this.$router.back();
-      } else {
-        window.alert('删除失败');
-      }
+      //TODO
+      // if (store.removeTag(this.tag.id)) {
+      //   this.$router.back();
+      // } else {
+      //   window.alert('删除失败');
+      // }
     }
   }
   goBack() {
