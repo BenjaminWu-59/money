@@ -5,7 +5,6 @@ import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
 import NotFound from '@/components/NotFound.vue';
 import Money from '@/views/Money.vue';
-import Test from '@/practice/Test.vue'
 import Detail from '@/views/Detail.vue';
 import EditLabel from '@/views/EditLabel.vue';
 

@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <label class="formItem">
@@ -13,7 +14,6 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-
 @Component
 export default class FormItem extends Vue {
   @Prop({default: ''}) readonly value!: string;
