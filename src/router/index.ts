@@ -45,11 +45,6 @@ const routes: Array<RouteConfig> = [
 
     },
     {
-        path: '/test',
-        component:Test,
-
-    },
-    {
         path:'*',
         component:NotFound,
 

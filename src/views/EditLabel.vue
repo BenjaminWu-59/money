@@ -8,16 +8,12 @@
       <span class="rightIcon"/>
     </div>
     <div class="form-wrapper">
-      <div class="formItem">
-        <span class="name">标签名</span>
-        <input type="text"
-               :value="tag.name"
-               @input="update($event.target.value)"
-               placeholder="请输入标签名">
-      </div>
+      <FormItem :value="tag.name"
+                @update:value="update"
+                field-name="标签名" placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
-      <Btn @click="remvoe">
+      <Btn @click="remove">
         删除标签
       </Btn>
     </div>
@@ -28,9 +24,10 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Btn from '@/components/Btn.vue';
+import FormItem from '@/components/Money/FormItem.vue';
 
 @Component({
-  components: {Btn},
+  components: {Btn,FormItem},
 })
 export default class EditLabel extends Vue {
   get tag() {
@@ -38,27 +35,24 @@ export default class EditLabel extends Vue {
   }
   created() {//将路由和标签串联，使得标签单独变成可访问页面
     const id = this.$route.params.id
+    this.$store.commit('fetchTags');
     this.$store.commit('setCurrentTag',id);
     if (!this.tag) {
       this.$router.replace('/404');
     }
   }
 
-  update(value:string) {
+  update(name:string) {
+    console.log(name);
     if (this.tag) {
-      //TODO
-      // store.updateTag(this.tag.id, value);
+      this.$store.commit('updateTag', {
+        id: this.tag.id, name
+      });
     }
   }
-  remvoe(){
+  remove(){
     if (this.tag) {
-      //TODO
-      return
-      // if (store.removeTag(this.tag.id)) {
-      //   this.$router.back();
-      // } else {
-      //   window.alert('删除失败');
-      // }
+      this.$store.commit('removeTag', this.tag.id);
     }
   }
   goBack() {
@@ -68,25 +62,6 @@ export default class EditLabel extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.formItem {
-  font-size: 14px;
-  padding-left: 16px;
-  display: flex;
-  align-items: center;
-
-  .name {
-    padding-right: 16px;
-  }
-
-  input {
-    height: 40px;
-    flex-grow: 1;
-    background: transparent;
-    border: none;
-    padding-right: 16px;
-  }
-}
-
 .navBar {
   position:relative;
   text-align: center;
