@@ -30,14 +30,15 @@ import {Component} from 'vue-property-decorator';
 import Btn from '@/components/Btn.vue';
 
 @Component({
-  components: {Btn}
+  components: {Btn},
 })
 export default class EditLabel extends Vue {
- tag?:Tag = undefined
-
+  get tag() {
+    return this.$store.state.currentTag;
+  }
   created() {//将路由和标签串联，使得标签单独变成可访问页面
-    //TODO
-    // this.tag = store.findTag(this.$route.params.id);
+    const id = this.$route.params.id
+    this.$store.commit('setCurrentTag',id);
     if (!this.tag) {
       this.$router.replace('/404');
     }
@@ -52,6 +53,7 @@ export default class EditLabel extends Vue {
   remvoe(){
     if (this.tag) {
       //TODO
+      return
       // if (store.removeTag(this.tag.id)) {
       //   this.$router.back();
       // } else {
