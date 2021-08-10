@@ -50,14 +50,27 @@ export default class Types extends Vue {
     align-items: center;
     position: relative;
 
-    &.selected::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: #949596;
+    &.selected {
+      &::after {
+        display: inline-block;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 100%;
+        height: 3px;
+        background: #949596;
+        transform: translate(-50%);
+        animation:hide .25s ease-in
+      }
+      @keyframes hide{
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
     }
   }
 }

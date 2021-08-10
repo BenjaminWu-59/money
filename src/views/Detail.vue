@@ -1,17 +1,39 @@
 <template>
-  <div>
     <Layout>
-      <p>Detail</p>
+      <Types class="x" :value.sync="type"/>
+      <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
+      <div>
+        type: {{type}}
+        <br/>
+        interval: {{interval}}
+      </div>
     </Layout>
-  </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Detail'
-};
+import Types from '@/components/Money/Types.vue';
+import Tabs from '@/components/Tabs.vue'
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component({
+  components: {Types,Tabs}
+})
+export default class Detail extends Vue {
+   type = '-'
+  interval = 'day';
+  intervalList = [
+    {text: '按天', value: 'day'},
+    {text: '按周', value: 'week'},
+    {text: '按月', value: 'month'},
+  ];
+}
 </script>
 
 <style lang="scss" scoped>
-
+.x{
+  &::v-deep .back{
+    display: none;
+  }
+}
 </style>
