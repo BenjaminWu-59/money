@@ -21,7 +21,11 @@ import intervalList from '@/constants/intervalList';
   components: {Types,Tabs}
 })
 export default class Detail extends Vue {
-   type = '-'
+  get recordList(){
+   return this.$store.state.recordList
+  }
+
+  type = '-'
   interval = 'day';
   intervalList = intervalList
 }
