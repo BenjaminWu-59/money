@@ -28,9 +28,10 @@ export default class Detail extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.x{
-  &::v-deep .back{
-    display: none;
-  }
+::v-deep .back {
+  display: none;
+}
+::v-deep .interval-tabs-item{
+  height: 48px;
 }
 </style>
