@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <NumberPads :value.sync="record.amount" @submit="saveRecord" @update:note="onUpdateNotes"/>
-    <Tags/>
+    <Tags :value.sync="record.tags"/>
     <Types :value.sync="record.type" />
   </div>
 </template>
@@ -21,7 +21,6 @@ export default class Money extends Vue{
   get recordList() {
     return this.$store.state.recordList;
   }
-
   record:RecordItem ={
     tags:[],notes:'',type:'-',amount:0
   }
