@@ -4,7 +4,7 @@
       <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
       <ol>
         <li v-for="(group,index) in result" :key="index">
-          <h3 class="title">{{group.title}}</h3>
+          <h3 class="title">{{beautify(group.title)}}</h3>
           <ol>
             <li v-for="item in group.items" :key="item.id"
                 class="record"
@@ -25,6 +25,7 @@ import Tabs from '@/components/Tabs.vue'
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import intervalList from '@/constants/intervalList';
+import dayjs from 'dayjs';
 
 @Component({
   components: {Types,Tabs}
@@ -44,12 +45,18 @@ export default class Detail extends Vue {
     const hashTable: { [key: string]: HashTableValue } = {};
     for (let i = 0; i < recordList.length; i++) {
       const [date, time] = recordList[i].createAt!.split('T');
-      console.log(time);
       hashTable[date] = hashTable[date] || {title: date, items: []};
       hashTable[date].items.push(recordList[i]);
     }
     return hashTable;
   }
+
+  beautify(string:string){
+     const day = dayjs(string)
+     return day.format('YYYY年M月D日')
+  }
+
+
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
