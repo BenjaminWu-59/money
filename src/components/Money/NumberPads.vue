@@ -56,7 +56,6 @@ export default class NumberPads extends Vue {
     if(this.noteContent ===''){
       window.alert('备注不能为空')
     }else{
-      console.log(this.noteContent)
       this.show=false
     }
   }

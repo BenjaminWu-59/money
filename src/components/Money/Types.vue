@@ -7,7 +7,6 @@
       <li :class="value === '+' && 'selected'"
           @click="selectType('+')">收入
       </li>
-
       <div class="back">
         <router-link to="/account">取消</router-link>
       </div>
@@ -44,7 +43,7 @@ export default class Types extends Vue {
     font-size: 19px;
     color: white;
     width: 17%;
-    height: 32px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
