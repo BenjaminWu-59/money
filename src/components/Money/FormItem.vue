@@ -50,6 +50,8 @@ export default class FormItem extends Vue {
 }
 button{
   border:1px solid #d9d8d8;
+  background: #272a3b;
+  color: white;
   border-radius: 4px;
   padding: 1px 4px;
   position: absolute;

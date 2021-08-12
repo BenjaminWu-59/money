@@ -48,13 +48,15 @@ export default class Detail extends Vue {
     if (recordList.length === 0) {
       return [];
     }
-    // const hashTable: {title: string,items:RecordItem[]}[];
+
     const newList = clone(recordList)//分类->排序->按日期集合
         .filter(r => r.type === this.type)//将收入支出数据分类
         .sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());//对recordList进行排序，不排序时间就会乱展示
 
+    if(newList.length === 0) return [] //里面是空的时候，会导致result无法出现。渲染就出问题。
     type Result = { title: string, total?: number, items: RecordItem[] }[]
     const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+    console.log(result)
     for (let i = 1; i < newList.length; i++) { //按照日期title集合数据
       const current = newList[i];
       const last = result[result.length - 1];
@@ -70,7 +72,6 @@ export default class Detail extends Vue {
         return sum + item.amount;
       }, 0);
     });
-
     return result;
   }
 
@@ -83,7 +84,6 @@ export default class Detail extends Vue {
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
-
 
   type = '-'
   intervalList = intervalList

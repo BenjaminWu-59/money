@@ -10,6 +10,7 @@ Vue.use(Vuex) //把 store 绑到Vue.prototype
 const store = new Vuex.Store({
   state: {
     recordList: [],
+    createRecordError:null,
     tagList:[],
     currentTag: undefined //用于新增页面的tag
   }as RootState,
@@ -49,9 +50,15 @@ const store = new Vuex.Store({
     },
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
+      if(state.tagList.length === 0 || !state.tagList) {
+        store.commit('createTag','衣服');
+        store.commit('createTag','餐饮');
+        store.commit('createTag','住宿');
+        store.commit('createTag','行程');
+      }
     },
-    createRecord(state, record) {
-      const record2: RecordItem = clone(record);
+    createRecord(state, record:RecordItem) {
+      const record2 = clone(record);
       record2.createAt = new Date().toISOString();
       state.recordList.push(record2);
       store.commit('saveRecords')
