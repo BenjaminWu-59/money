@@ -1,10 +1,12 @@
 <template>
     <Layout>
       <Types class="x" :value.sync="type"/>
-      <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
       <ol>
         <li v-for="(group,index) in result" :key="index">
-          <h3 class="title">{{beautify(group.title)}}</h3>
+          <h3 class="title">
+            {{beautify(group.title)}}
+            <span>￥{{group.total}}</span>
+          </h3>
           <ol>
             <li v-for="item in group.items" :key="item.id"
                 class="record"
@@ -39,6 +41,7 @@ export default class Detail extends Vue {
   get recordList() {
     return (this.$store.state as RootState).recordList;
   }
+
   get result() {
     const {recordList} = this;
     // type HashTableValue = { title: string, items:RecordItem[]}
@@ -46,13 +49,13 @@ export default class Detail extends Vue {
       return [];
     }
     // const hashTable: {title: string,items:RecordItem[]}[];
-    const newList = clone(recordList)
-        .filter(r => r.type === this.type)
+    const newList = clone(recordList)//分类->排序->按日期集合
+        .filter(r => r.type === this.type)//将收入支出数据分类
         .sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());//对recordList进行排序，不排序时间就会乱展示
 
     type Result = { title: string, total?: number, items: RecordItem[] }[]
     const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
-    for (let i = 1; i < newList.length; i++) {
+    for (let i = 1; i < newList.length; i++) { //按照日期title集合数据
       const current = newList[i];
       const last = result[result.length - 1];
       if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
@@ -61,6 +64,7 @@ export default class Detail extends Vue {
         result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]});
       }
     }
+
     result.map(group => {
       group.total = group.items.reduce((sum, item) => {
         console.log(sum);
@@ -68,6 +72,7 @@ export default class Detail extends Vue {
         return sum + item.amount;
       }, 0);
     });
+
     return result;
   }
 
@@ -83,7 +88,6 @@ export default class Detail extends Vue {
 
 
   type = '-'
-  interval = 'day';
   intervalList = intervalList
 }
 </script>
@@ -103,7 +107,12 @@ export default class Detail extends Vue {
   align-content: center;
 }
 .title {
+  background: #b4b8bc;
   @extend %item;
+  >span{
+    font-size: 17px;
+    margin-right: -2px;
+  }
 }
 .record {
   background: white;

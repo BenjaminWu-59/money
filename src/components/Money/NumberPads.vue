@@ -34,7 +34,7 @@ import {Component,Watch,Prop} from 'vue-property-decorator';
 
 @Component
 export default class NumberPads extends Vue {
-  @Prop() readonly value!: number;
+  @Prop(Number) readonly value!: number;
   output = this.value.toString();
   show = false;
   noteContent='';
@@ -91,8 +91,9 @@ export default class NumberPads extends Vue {
   }
 
   ok(){
-     this.$emit('update:value',this.output)
-    this.$emit('submit',this.output)
+    const number = parseFloat(this.output) //字符串变数字
+     this.$emit('update:value', number)
+    this.$emit('submit', number)
     this.output = '0'
   }
 
