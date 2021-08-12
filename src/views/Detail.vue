@@ -56,7 +56,6 @@ export default class Detail extends Vue {
     if(newList.length === 0) return [] //里面是空的时候，会导致result无法出现。渲染就出问题。
     type Result = { title: string, total?: number, items: RecordItem[] }[]
     const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
-    console.log(result)
     for (let i = 1; i < newList.length; i++) { //按照日期title集合数据
       const current = newList[i];
       const last = result[result.length - 1];

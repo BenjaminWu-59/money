@@ -37,8 +37,8 @@ export default class Money extends Vue{
     this.$store.commit('createRecord',this.record)
     if(this.$store.state.createRecordError === null){
       window.alert('已保存')
-      this.record.tags = []
     }
+    this.$router.push('/detail')
   }
 
 }
