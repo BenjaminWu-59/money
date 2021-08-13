@@ -21,13 +21,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import {Component, Watch} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
+  @Prop()type!:string
   selectedTags:string[] = [];
   get tagList(){
-    return this.$store.state.tagList
+    return this.$store.state.tagList.filter((tag: Tag) => tag.type === this.type)
   }
 
   beforeCreate() {
@@ -61,6 +62,7 @@ export default class Tags extends Vue {
   >.tag-list{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-content: flex-start;
     >.tag-item{
       width: 25%;

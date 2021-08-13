@@ -69,6 +69,10 @@ const store = new Vuex.Store({
       if(state.tagList.length === 0) {
         store.commit('createTag',{name: '衣服',svg:'衣服', type: '-'});
         store.commit('createTag',{name: '餐饮',svg:'餐饮', type: '-'});
+        store.commit('createTag',{name: '租房',svg:'租房', type: '-'});
+        store.commit('createTag',{name: '交通',svg:'交通', type: '-'});
+        store.commit('createTag',{name: '娱乐',svg:'娱乐', type: '-'});
+        store.commit('createTag',{name: '工资',svg:'工资', type: '+'});
       }//我是个傻逼，之前还放错地方
     },
 

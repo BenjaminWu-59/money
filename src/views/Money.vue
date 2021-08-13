@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <NumberPads :value.sync="record.amount" @submit="saveRecord" @update:note="onUpdateNotes"/>
-    <Tags :value.sync="record.tags"/>
+    <Tags :value.sync="record.tags" :type="record.type"/>
     <Types :value.sync="record.type" />
   </div>
 </template>
