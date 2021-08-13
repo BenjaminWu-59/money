@@ -67,22 +67,20 @@ const store = new Vuex.Store({
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if(state.tagList.length === 0) {
-        store.commit('createTag','衣服');
-        store.commit('createTag','餐饮');
-        store.commit('createTag','住宿');
-        store.commit('createTag','行程');
+        store.commit('createTag',{name: '衣服',svg:'衣服', type: '-'});
+        store.commit('createTag',{name: '餐饮',svg:'餐饮', type: '-'});
       }//我是个傻逼，之前还放错地方
     },
 
-    createTag(state, name: string) {
+    createTag(state, newTag:Tag) {
       state.createTagError = null;
       const names = state.tagList.map(item => item.name);
-      if (names.indexOf(name) >= 0) {
+      if (names.indexOf(newTag.name) >= 0) {
         state.createTagError = new Error('tag name duplicated')
         return
       }
       const id = createId().toString();
-      state.tagList.push({id, name: name});
+      state.tagList.push({id, name:newTag.name,type:newTag.type,svg:newTag.svg});
       store.commit('saveTags');
     },
     saveTags(state) {

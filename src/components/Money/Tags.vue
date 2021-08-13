@@ -1,13 +1,18 @@
 <template>
   <div class="tags">
-    <div class="new" >
-      <button @click="goTo">新增标签</button>
-    </div>
-    <ul class="current">
-      <li v-for="tag in tagList" :key="tag.id"
-          :class="{selected: selectedTags.indexOf(tag)>=0}"
+    <ul class="tag-list">
+      <li class="tag-item" v-for="tag in tagList" :key="tag.id"
           @click="toggle(tag)">
-        {{tag.name}}
+       <div class="icon-wrapper"  :class="{selected: selectedTags.indexOf(tag)>=0}">
+         <Icon :name="tag.svg" />
+       </div>
+        <span> {{tag.name}}</span>
+      </li>
+      <li class="edit" @click="goTo">
+        <div class="icon-wrapper">
+          <Icon name="add" />
+        </div>
+        <span>编辑</span>
       </li>
     </ul>
   </div>
@@ -53,35 +58,58 @@ export default class Tags extends Vue {
   font-size: 14px;
   padding: 16px;
   flex-grow: 1;
-  display: flex;
-  flex-direction: column-reverse;
-  > .current {
+  >.tag-list{
     display: flex;
-    flex-wrap: wrap;
-    > li {
-      $bg: #d9d9d9;
-      background:$bg;
-      $h: 24px;
-      height: $h;
-      line-height: $h;
-      border-radius: $h/2;
-      padding: 0 16px;
-      margin-right: 12px;
-      margin-top: 4px;
-      &.selected{
-        background: darken($bg,50%);
-        color:white;
+    flex-direction: row;
+    align-content: flex-start;
+    >.tag-item{
+      width: 25%;
+      padding: 12px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      >.icon-wrapper{
+        width: 48px;
+        height: 48px;
+        padding: 4px;
+        border-radius: 50%;
+        background: #dedede;
+        margin-bottom: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       &.selected{
+         background: #c6d5e5;
+       }
+        >svg{
+          width: 30px;
+          height: 30px;
+        }
       }
     }
-  }
-  > .new {
-    padding-top: 16px;
-    button {
-      background: transparent;
-      border: none;
-      color: #999;
-      border-bottom: 1px solid;
-      padding: 0 4px;
+
+    >.edit{
+      width: 25%;
+      padding: 12px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      >.icon-wrapper{
+        width: 48px;
+        height: 48px;
+        padding: 4px;
+        border-radius: 50%;
+        background: #dedede;
+        margin-bottom: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        >svg{
+          width: 25px;
+          height: 25px;
+        }
+      }
     }
   }
 }

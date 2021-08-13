@@ -17,7 +17,11 @@ type RecordItem = {
 type Tag = {
     id:string;
     name:string;
+    svg:string;
+    type:moneyType
 }//给tag标签赋予id，方便后面调用
+
+type moneyType = '+'|'-'
 
 type TagListModel = {
     data: Tag[]
