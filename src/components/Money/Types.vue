@@ -36,13 +36,14 @@ export default class Types extends Vue {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   box-shadow: 1px 1px 1px 1px hsla(240, 0%, 100%, 0.1) inset,
   0 0 1em rgba(0, 0, 0, 0.2);
 
   > li {
     font-size: 19px;
     color: white;
-    width: 17%;
+    width: 20%;
     height: 40px;
     display: flex;
     justify-content: center;

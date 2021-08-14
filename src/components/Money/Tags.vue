@@ -57,7 +57,7 @@ export default class Tags extends Vue {
 <style lang="scss" scoped>
 .tags {
   font-size: 14px;
-  padding: 14px;
+  padding: 12px;
   flex-grow: 1;
   overflow: auto;
 
