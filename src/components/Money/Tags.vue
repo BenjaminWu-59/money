@@ -57,8 +57,10 @@ export default class Tags extends Vue {
 <style lang="scss" scoped>
 .tags {
   font-size: 14px;
-  padding: 16px;
+  padding: 14px;
   flex-grow: 1;
+  overflow: auto;
+
   >.tag-list{
     display: flex;
     flex-direction: row;
@@ -66,7 +68,7 @@ export default class Tags extends Vue {
     align-content: flex-start;
     >.tag-item{
       width: 25%;
-      padding: 12px 0;
+      padding: 15px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -92,7 +94,7 @@ export default class Tags extends Vue {
 
     >.edit{
       width: 25%;
-      padding: 12px 0;
+      padding: 15px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
