@@ -7,10 +7,11 @@
             {{beautify(group.title)}}
             <span>￥{{group.total}}</span>
           </h3>
-          <ol>
+          <ol class="content">
             <li v-for="item in group.items" :key="item.id"
                 class="record"
             >
+              <Icon :name="svgString(item.tags)"/>
               <span>{{tagString(item.tags)}}</span>
               <span class="notes">{{item.notes}}</span>
               <span>￥{{item.amount}} </span>
@@ -41,6 +42,9 @@ export default class Detail extends Vue {
   tagString(tags: Tag[]) {
   return tags.length === 0 ? '无' : tags[0].name;
   }
+  svgString(tags: Tag[]){
+    return tags.length === 0 ? '无' : tags[0].svg;
+  }
 
   get recordList() {
     return (this.$store.state as RootState).recordList;
@@ -59,14 +63,14 @@ export default class Detail extends Vue {
 
     if(newList.length === 0) return [] //里面是空的时候，会导致result无法出现。渲染就出问题。
     type Result = { title: string, total?: number, items: RecordItem[] }[]
-    const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+    const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD HH:mm'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++) { //按照日期title集合数据
       const current = newList[i];
       const last = result[result.length - 1];
       if (dayjs(last.title).isSame(dayjs(current.createAt), 'day')) {
         last.items.push(current);
       } else {
-        result.push({title: dayjs(current.createAt).format('YYYY-MM-DD'), items: [current]});
+        result.push({title: dayjs(current.createAt).format('YYYY-MM-DD HH:mm'), items: [current]});
       }
     }
 
@@ -82,6 +86,7 @@ export default class Detail extends Vue {
      const day = dayjs(string)
      return day.format('YYYY年M月D日')
   }
+
 
 
   beforeCreate() {
@@ -107,6 +112,21 @@ export default class Detail extends Vue {
   justify-content: space-between;
   align-content: center;
 }
+.content{
+    >li{
+      display: flex;
+      align-items: center;
+      svg{
+        margin-right: 5px;
+        width: 15px;
+      }
+      .notes {
+        margin-right: auto;
+        margin-left: 16px;
+        color: #999;
+      }
+    }
+}
 .title {
   background: #b4b8bc;
   @extend %item;
@@ -118,11 +138,6 @@ export default class Detail extends Vue {
 .record {
   background: white;
   @extend %item;
-}
-.notes {
-  margin-right: auto;
-  margin-left: 16px;
-  color: #999;
 }
 
 .displayNone{

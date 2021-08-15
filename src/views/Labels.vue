@@ -42,6 +42,8 @@ import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
 import Types from '@/components/Money/Types.vue';
 import Dialog2 from '@/components/Dialog2.vue'
+import addTagList from '@/constants/addTagList';
+
 
 @Component({
   components: {Btn,Types,Dialog2},
@@ -60,8 +62,8 @@ addTagList!:Tag
     this.$store.commit('fetchTags');
   }
 
-
-  addIcons = [{name:'蛋糕'},{name:'夜宵'},{name:'银锭'},{name:'卡卡'},{name:'音乐'},{name:'电器'},{name:'月亮'},{name:'手机'},{name:'图书'},{name:'约会'},{name:'宇宙'},{name:'游戏'}]
+  addIcons = addTagList
+      // [{name:'蛋糕'},{name:'夜宵'},{name:'银锭'},{name:'卡卡'},{name:'音乐'},{name:'电器'},{name:'月亮'},{name:'手机'},{name:'图书'},{name:'约会'},{name:'宇宙'},{name:'游戏'}]
 
   open(){
     this.show = true
