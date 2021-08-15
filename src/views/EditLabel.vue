@@ -112,7 +112,7 @@ export default class EditLabel extends Vue {
     margin: 5px 0;
     width: 100px;
     &.change{
-       background: #82e2cc;
+       background: #77bae5;
     }
     &.remove{
       background: #272a3b;

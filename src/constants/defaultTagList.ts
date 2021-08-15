@@ -12,7 +12,6 @@ const defaultTagList = [
     {name: '送礼',svg:'送礼', type: '-'},
     {name: '工资',svg:'工资', type: '+'},
     {name: '红包',svg:'红包', type: '+'},
-    {name: '工资',svg:'工资', type: '+'},
     {name: '公积金',svg:'公积金', type: '+'},
     {name: '版权',svg:'版权', type: '+'},
 ]

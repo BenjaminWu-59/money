@@ -18,6 +18,10 @@
           </ol>
         </li>
       </ol>
+      <div class="displayNone" v-if="recordList.length === 0">
+        <Icon name="空"/>
+        <span>空空如也~</span>
+      </div>
     </Layout>
 </template>
 
@@ -119,5 +123,22 @@ export default class Detail extends Vue {
   margin-right: auto;
   margin-left: 16px;
   color: #999;
+}
+
+.displayNone{
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top:10px;
+  >svg{
+    width:150px;
+    height: 150px;
+  }
+  >span{
+    margin-top: 5px;
+    color: #a2a2a2;
+  }
 }
 </style>
