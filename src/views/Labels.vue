@@ -86,8 +86,12 @@ addTagList!:Tag
 
 
   ok(){
-    this.addTagList= {name:JSON.parse(JSON.stringify(this.tagAddName)),svg:JSON.parse(JSON.stringify(this.selectedAddTags[0])).name,type:this.type}
-    this.$store.commit('createTag',this.addTagList)
+    if(this.tagAddName === '' || this.selectedAddTags.length <= 0){
+      window.alert('请输入标签名或选择图标')
+    }else{
+      this.addTagList= {name:JSON.parse(JSON.stringify(this.tagAddName)),svg:JSON.parse(JSON.stringify(this.selectedAddTags[0])).name,type:this.type}
+      this.$store.commit('createTag',this.addTagList)
+    }
     this.show = false
     this.tagAddName = ''
   }

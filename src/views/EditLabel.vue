@@ -42,7 +42,7 @@ import Dialog2 from '@/components/Dialog2.vue'
 })
 export default class EditLabel extends Vue {
   show = false
-  changeName!:string
+  changeName = ''
   tag!:{id:string,name:string}
 
   get currentTag() {
@@ -57,12 +57,11 @@ export default class EditLabel extends Vue {
       this.$router.replace('/404');
     }
   }
-  update(name: string) {
-    if (this.currentTag) {
-      this.$store.commit('updateTag', {
-        id: this.currentTag.id, name
-      });
-    }
+
+
+  onValueChanged(value:string){
+    this.changeName = value
+    console.log(this.changeName);
   }
 
   open(){
@@ -72,16 +71,16 @@ export default class EditLabel extends Vue {
   hideModal(){
     this.show = false
   }
-  onValueChanged(value:string){
-    this.changeName = value
-    console.log(this.changeName);
-  }
 
   ok(){
     const x:string = this.changeName
     const y:string = this.currentTag.id
-    this.tag = {id:y,name:x} //试了很多遍，才发现最好是用对象传过去
+    if(this.changeName === ''){
+      window.alert('标签名不能为空')
+    }else{
+      this.tag = {id:y,name:x} //试了很多遍，才发现最好是用对象传过去
       this.$store.commit('updateTag', this.tag)
+    }
     this.show = false
   }
 
