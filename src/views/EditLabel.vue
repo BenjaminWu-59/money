@@ -7,12 +7,17 @@
       <span class="title">编辑标签</span>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="currentTag.name"
-                @update:value="update"
-                field-name="标签名" placeholder="请输入标签名"/>
+      <div class="display">
+        <Icon :name="currentTag.svg"/>
+        <span>{{currentTag.name}}</span>
+      </div>
+<!--      <FormItem :value="currentTag.name"-->
+<!--                @update:value="update"-->
+<!--                field-name="标签名" placeholder="请输入标签名"/>-->
     </div>
     <div class="button-wrapper">
-      <Button @click="remove">删除标签</Button>
+      <Button class="change" @click="remove">修改标签</Button>
+      <Button class="remove" @click="remove">删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -61,11 +66,12 @@ export default class EditLabel extends Vue {
   text-align: center;
   font-size: 16px;
   padding: 12px 16px;
-  background: white;
+  background:#272a3b;
   display: flex;
   align-items: center;
   justify-content:center;
   > .title {
+    color: white;
   }
   > .leftIcon {
     position:absolute;
@@ -73,6 +79,7 @@ export default class EditLabel extends Vue {
     left: 20px;
     cursor: pointer;
     >svg{
+      color:white;;
       width: 24px;
       height: 24px;
     }
@@ -80,11 +87,36 @@ export default class EditLabel extends Vue {
 }
 .form-wrapper {
   background: white;
-  margin-top: 8px;
+  margin-top: 10px;
+  .display{
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   svg{
+     width: 30px;
+     height: 30px;
+     margin-right:10px ;
+   }
+    >span{
+      font-weight: bold;
+    }
+  }
 }
 .button-wrapper {
-  text-align: center;
-  padding: 16px;
-  margin-top: 44-16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin:30px 0;
+  >Button{
+    margin: 5px 0;
+    width: 100px;
+    &.change{
+       background: #82e2cc;
+    }
+    &.remove{
+      background: #272a3b;
+    }
+  }
 }
 </style>

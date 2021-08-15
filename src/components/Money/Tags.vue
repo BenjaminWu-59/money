@@ -44,12 +44,11 @@ export default class Tags extends Vue {
     this.selectedTags.push(tag)
     }
     this.$emit('update:value',this.selectedTags)
-    console.log(this.selectedTags);
   }
 
 
   goTo(){
-    this.$router.push('/labels')
+    this.$router.push('/money/labels')
   }
 }
 

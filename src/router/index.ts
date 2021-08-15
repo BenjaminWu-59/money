@@ -27,11 +27,11 @@ const routes: Array<RouteConfig> = [
         component: Money,
     },
     {
-        path: '/labels',
+        path: '/money/labels',
         component: Labels,
     },
     {
-        path: '/labels/edit/:id',
+        path: '/money/labels/edit/:id',
         component: EditLabel,
     },
     {

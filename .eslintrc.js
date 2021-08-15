@@ -21,7 +21,8 @@ module.exports = {
     "__WebpackModuleApi": true,
     'RecordItem': true,
     'Tag':true,
-    'RootState':true
+    'RootState':true,
+    'moneyType':true
   },
   overrides: [
     {

@@ -15,7 +15,7 @@ type RecordItem = {
 }
 
 type Tag = {
-    id:string;
+    id?:string;
     name:string;
     svg:string;
     type:moneyType

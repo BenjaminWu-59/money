@@ -8,7 +8,10 @@
           @click="selectType('+')">收入
       </li>
       <div class="back">
-        <router-link to="/account">取消</router-link>
+        <div @click="back">取消</div>
+      </div>
+      <div @click="left" class="left">
+        <Icon name="left"/>
       </div>
     </ul>
   </div>
@@ -27,6 +30,13 @@ export default class Types extends Vue {
     }
     this.$emit('update:value',type)
   }
+
+  back(){
+    this.$router.push('/account')
+  }
+  left(){
+    this.$router.push('/money')
+  }
 }
 </script>
 
@@ -39,6 +49,18 @@ export default class Types extends Vue {
   align-items: center;
   box-shadow: 1px 1px 1px 1px hsla(240, 0%, 100%, 0.1) inset,
   0 0 1em rgba(0, 0, 0, 0.2);
+
+  .left{
+    display: none;
+    position: absolute;
+    z-index: 3;
+    left: 3px;
+    svg{
+      width: 25px;
+      height: 25px;
+      color: white;
+    }
+  }
 
   > li {
     font-size: 19px;
@@ -77,7 +99,7 @@ export default class Types extends Vue {
 
 .back {
   position: absolute;
-  right: 0;
+  right: 5px;
   padding: 4px;
   color: white;
 }
