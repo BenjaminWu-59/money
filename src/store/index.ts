@@ -22,6 +22,7 @@ const store = new Vuex.Store({
     },
     updateTag(state, payload: { id: string, name: string }) {
       const {id, name} = payload;
+      console.log({id,name});
       const idList = state.tagList.map(item => item.id);
       if (idList.indexOf(id) >= 0) {
         const names = state.tagList.map(item => item.name);

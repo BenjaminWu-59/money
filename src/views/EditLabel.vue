@@ -11,14 +11,23 @@
         <Icon :name="currentTag.svg"/>
         <span>{{currentTag.name}}</span>
       </div>
-<!--      <FormItem :value="currentTag.name"-->
-<!--                @update:value="update"-->
-<!--                field-name="标签名" placeholder="请输入标签名"/>-->
     </div>
     <div class="button-wrapper">
-      <Button class="change" @click="remove">修改标签</Button>
+      <Button class="change" @click="open">修改标签</Button>
       <Button class="remove" @click="remove">删除标签</Button>
     </div>
+
+    <Dialog2  :value="show" :fn="hideModal" :fn2="ok">
+      <template v-slot:header>修改标签</template>
+      <template  v-slot:content>
+        <div class="changeContent">
+          <input type="text"
+                 @input="onValueChanged($event.target.value)"
+                 placeholder="输入要修改的标签名">
+        </div>
+      </template>
+    </Dialog2>
+
   </Layout>
 </template>
 
@@ -27,13 +36,19 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Btn.vue';
+import Dialog2 from '@/components/Dialog2.vue'
 @Component({
-  components: {Button, FormItem},
+  components: {Button, FormItem,Dialog2},
 })
 export default class EditLabel extends Vue {
+  show = false
+  changeName!:string
+  tag!:{id:string,name:string}
+
   get currentTag() {
     return this.$store.state.currentTag;
   }
+
   created() {
     const id = this.$route.params.id;
     this.$store.commit('fetchTags');
@@ -49,6 +64,28 @@ export default class EditLabel extends Vue {
       });
     }
   }
+
+  open(){
+    this.show = true
+  }
+
+  hideModal(){
+    this.show = false
+  }
+  onValueChanged(value:string){
+    this.changeName = value
+    console.log(this.changeName);
+  }
+
+  ok(){
+    const x:string = this.changeName
+    const y:string = this.currentTag.id
+    this.tag = {id:y,name:x} //试了很多遍，才发现最好是用对象传过去
+      this.$store.commit('updateTag', this.tag)
+    this.show = false
+  }
+
+
   remove() {
     if (this.currentTag) {
       this.$store.commit('removeTag', this.currentTag.id);
@@ -117,6 +154,28 @@ export default class EditLabel extends Vue {
     &.remove{
       background: #272a3b;
     }
+  }
+}
+.changeContent{
+  >input{
+    box-sizing: border-box;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum";
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 32px;
+    margin-top: 5px;
+    padding: 0 10px;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    transition: all .3s;
   }
 }
 </style>

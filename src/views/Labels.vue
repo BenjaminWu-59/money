@@ -12,6 +12,7 @@
     </div>
     <div class="createTag-wrapper">
       <button class="addButton" @click="open">新增标签</button>
+
       <Dialog2 :value="show" :fn="hideModal" :fn2="ok">
         <template v-slot:header>
           新增标签
@@ -20,7 +21,7 @@
          <div class="tagName">
            <span>标签名</span>
            <input type="text"
-                  @input="onValueChanged($event.target.value)"
+                  v-model="tagAddName"
                   placeholder="请输入标签名">
          </div>
           <div class="tagIcons">
@@ -49,7 +50,7 @@ export default class Labels extends mixins(TagHelper){
 type:moneyType = '-'
 show = false;
 selectedAddTags:string[] = [];
-tagAddName!:string
+tagAddName = ''
 addTagList!:Tag
 
   get tags() {
@@ -82,15 +83,13 @@ addTagList!:Tag
     // console.log(this.type);
   }
 
-  onValueChanged(value: string) {
-    this.tagAddName = value
-    // console.log(this.tagAddName);
-  }
+
 
   ok(){
-    this.addTagList= {name:this.tagAddName,svg:JSON.parse(JSON.stringify(this.selectedAddTags[0])).name,type:this.type}
+    this.addTagList= {name:JSON.parse(JSON.stringify(this.tagAddName)),svg:JSON.parse(JSON.stringify(this.selectedAddTags[0])).name,type:this.type}
     this.$store.commit('createTag',this.addTagList)
     this.show = false
+    this.tagAddName = ''
   }
 }
 </script>
