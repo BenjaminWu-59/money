@@ -8,19 +8,21 @@
       </router-link>
     </div>
     <div class="createTag-wrapper">
-      <button @click="open">新增标签</button>
-      <Dialog2 :value="show" :fn="hideModal">
+      <button class="addButton" @click="open">新增标签</button>
+      <Dialog2 :value="show" :fn="hideModal" :fn2="ok">
         <template v-slot:header>
           新增标签
         </template>
         <template v-slot:content>
          <div class="tagName">
            <span>标签名</span>
-           <input type="text" placeholder="请输入标签名">
+           <input type="text"
+                  @input="onValueChanged($event.target.value)"
+                  placeholder="请输入标签名">
          </div>
           <div class="tagIcons">
-            <div class="tagIcon" v-for="icon in addIcons" :key="icon">
-              <Icon :name="icon"/>
+            <div class="tagIcon" @click="toggle(icon)"  v-for="(icon,index) in addIcons" :key="index" :class="{selected: selectedAddTags.indexOf(icon)>=0}">
+              <Icon  :name="icon.name"/>
             </div>
           </div>
         </template>
@@ -40,7 +42,13 @@ import Dialog2 from '@/components/Dialog2.vue'
 @Component({
   components: {Btn,Types,Dialog2},
 })
-export default class Labels extends mixins(TagHelper) {
+export default class Labels extends mixins(TagHelper){
+type = '-'
+show = false;
+selectedAddTags:string[] = [];
+tagAddName!:string
+addTagList:Tag[] = []
+
   get tags() {
     return this.$store.state.tagList.filter((tag:Tag)=> tag.type === this.type);
   }
@@ -48,14 +56,41 @@ export default class Labels extends mixins(TagHelper) {
     this.$store.commit('fetchTags');
   }
 
-  type = '-'
-  show = false;
-  addIcons = ['蛋糕','夜宵','银锭','卡卡','月亮']
+
+
+  addIcons = [{name:'蛋糕'},{name:'夜宵'},{name:'银锭'},{name:'卡卡'},{name:'音乐'},{name:'电器'},{name:'月亮'},{name:'手机'},{name:'图书'},{name:'约会'},{name:'宇宙'},{name:'游戏'}]
+
   open(){
     this.show = true
   }
   hideModal(){
     this.show = false
+  }
+
+
+  toggle(icon:string){
+    const index = this.selectedAddTags.indexOf(icon)
+    if(index >= 0){
+      this.selectedAddTags.splice(index,1)
+    }else {
+      this.selectedAddTags.splice(index,1)
+      this.selectedAddTags.push(icon)
+    }
+    return this.selectedAddTags
+    // console.log(JSON.stringify(this.selectedAddTags[0].name));
+    // console.log(this.type);
+  }
+
+  onValueChanged(value: string) {
+    this.tagAddName = value
+    // console.log(this.tagAddName);
+  }
+
+  ok(){
+    console.log(JSON.stringify(this.selectedAddTags[0].name));
+    console.log(this.type);
+    console.log(this.tagAddName);
+    // this.show = false
   }
 }
 </script>
@@ -95,10 +130,19 @@ export default class Labels extends mixins(TagHelper) {
     padding: 16px;
     margin-top: 44-16px;
 
+    .addButton{
+     border:none;
+      background: #272a3b;
+      color: #f8f6f6;
+     border-radius: 4px;
+      height: 35px;
+     width: 90px;
+    }
+
     .tagName{
       display: flex;
       align-items: center;
-      padding:5px 0;
+      padding:10px 0;
       border-bottom: 1px solid #cdcccc;
       span{
         white-space:nowrap;
@@ -127,25 +171,36 @@ export default class Labels extends mixins(TagHelper) {
       }
     }
     .tagIcons{
-      margin: 5px;
+      border:1.1px solid #cac7c7;
+      box-shadow: 0 0 3px #cac7c7 inset;
+      max-height: 22vh;
+      overflow: auto;
+      margin: 10px;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       align-content: flex-start;
 
       .tagIcon{
-        width: 25%;
+        width: 33.333%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        &.selected{
+          >svg{
+          background: #c6d5e5;
+          }
+        }
         svg{
-          margin: 4px;
-          padding:0 2px ;
+          margin: 10px;
+          padding:4px 2px ;
           border: 1px solid #d3d3d3;
           border-radius: 10px;
           height:35px;
-          width:80%;
-      }}
+          width:70%;
+      }
+      }
     }
   }
 }

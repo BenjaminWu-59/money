@@ -9,7 +9,7 @@
          <slot name="content"></slot>
         </div>
         <div class="modalFoot">
-          <div class="footButton">确认</div>
+          <div class="footButton" @click="fn2">确认</div>
           <div class="footButton" @click="fn">取消</div>
         </div>
       </div>
@@ -25,6 +25,7 @@ import {Component,Prop} from "vue-property-decorator";
 export default class Dialog2 extends Vue{
   @Prop(Boolean)  value;
   @Prop(Function) fn;
+  @Prop(Function) fn2;
 
 }
 </script>

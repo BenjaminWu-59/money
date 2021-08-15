@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import {Component, Prop, Watch} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
@@ -44,6 +44,7 @@ export default class Tags extends Vue {
     this.selectedTags.push(tag)
     }
     this.$emit('update:value',this.selectedTags)
+    console.log(this.selectedTags);
   }
 
 
