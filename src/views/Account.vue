@@ -330,7 +330,7 @@ export default class Account extends Vue {
           border-radius: 50%;
           width: 30px;
           height: 30px;
-          background: #79e56c;
+          background: #5fc452;
           box-shadow: 0 0 0 0 rgb(255 255 255 / 30%) inset, 0 0.3em 1em rgb(0 0 0 / 24%);
 
           &.changeColor {
