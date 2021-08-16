@@ -36,7 +36,7 @@
                 <span class="name"><strong>{{tagString(item.tags)}}</strong></span>
                 <span class="amount">{{item.amount}}元 </span>
               </div>
-              <div class="time">{{ hour(group.title) }}</div>
+              <div class="time">{{hour(item.createAt)}}</div>
             </li>
           </ol>
         </li>
@@ -83,6 +83,11 @@ export default class Account extends Vue {
     return tags.length === 0 ? '无' : tags[0].type;
   }
 
+  timeString(tags:RecordItem[]){
+    console.log(tags);
+  }
+
+
   get recordList() {
     return (this.$store.state as RootState).recordList;
   }
@@ -109,14 +114,15 @@ export default class Account extends Vue {
         result.push({title: dayjs(current.createAt).format('YYYY-MM-DD HH:mm'), items: [current]});
       }
     }
-
     result.map(group => {
       group.total = group.items.reduce((sum, item) => {
         return sum + item.amount;
       }, 0);
     });
+    console.log(result[0].items);
     return result;
   }
+
 
   beautify(string:string){
     const day = dayjs(string)
@@ -126,6 +132,8 @@ export default class Account extends Vue {
     const day = dayjs(string)
     return day.format('HH:mm')
   }
+
+
 
   beforeCreate() {
     this.$store.commit('fetchRecords');
@@ -238,7 +246,7 @@ export default class Account extends Vue {
     justify-content: center;
     align-items: center;
     .title{
-      width: 70vw;
+      width: 80vw;
       display: flex;
       justify-content:space-between;
       align-items: center;
@@ -247,7 +255,7 @@ export default class Account extends Vue {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 60px;
+        width: 150px;
         color: #969696;
         font-size: 12px;
         font-family:sans-serif;
@@ -285,7 +293,7 @@ export default class Account extends Vue {
       height: 100%;
       overflow: hidden;
       >li{
-        width: 70vw;
+        width: 80vw;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -327,7 +335,7 @@ export default class Account extends Vue {
           z-index: 10;
           >span{
             white-space: nowrap;
-            font-size: 13px;
+            font-size: 11px;
             font-family: sans-serif;
             font-weight: normal;
             color: #929292;
@@ -337,7 +345,7 @@ export default class Account extends Vue {
 
             &.amount{
               color: #474747;
-              font-size: 10px;
+              font-size: 8px;
             }
           }
         }
