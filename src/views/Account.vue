@@ -1,17 +1,17 @@
 <template>
   <Layout class="Layout">
-      <div class="header">
-        <img src="../assets/picture/rain4.jpeg" alt="图片不见了">
-        <div class="link1">雨点记账</div>
-        <div class="Button"></div>
-        <div id="wave" @click="onClick">
-          <transition name="bounce" >
-            <div  class="A" v-if="show">
+    <div class="header">
+      <img src="../assets/picture/rain4.jpeg" alt="图片不见了">
+      <div class="link1">雨点记账</div>
+      <div class="Button"></div>
+      <div id="wave" @click="onClick">
+        <transition name="bounce">
+          <div class="A" v-if="show">
             <Icon class="aaa" name="pocket"/>
-            </div>
-          </transition>
-        </div>
+          </div>
+        </transition>
       </div>
+    </div>
 
     <div class="timeLine">
       <ol class="main">
@@ -20,9 +20,9 @@
             <span class="title-date">{{ beautify(group.title) }}</span>
             <div class="title-dot">
               <div class="title-line"/>
-              <div class="dot" />
-              </div>
-            <span class="title-account">{{group.total}}元</span>
+              <div class="dot"/>
+            </div>
+            <span class="title-account">{{ group.total }}元</span>
           </div>
           <ol class="content">
             <li v-for="item in group.items" :key="item.id"
@@ -33,57 +33,69 @@
                 <Icon :name="svgString(item.tags)"/>
               </div>
               <div class="message">
-                <span class="name"><strong>{{tagString(item.tags)}}</strong></span>
-                <span class="amount">{{item.amount}}元 </span>
+                <span class="name"><strong>{{ tagString(item.tags) }}</strong></span>
+                <span class="amount">{{ item.amount }}元 </span>
               </div>
-              <div class="time">{{hour(item.createAt)}}</div>
+              <div class="time">{{ hour(item.createAt) }}</div>
             </li>
           </ol>
         </li>
       </ol>
     </div>
 
+
+    <div class="before-timeLine" v-if="recordList.length <= 0">
+      <div class="tree">
+        <Icon name="树林"/>
+      </div>
+      <span>记一笔，会出现时间树哟~</span>
+
+    </div>
+
   </Layout>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import clone from '@/lib/clone';
 import dayjs from 'dayjs';
 import Types from '@/components/Money/Types.vue';
-import Tabs from '@/components/Tabs.vue'
+import Tabs from '@/components/Tabs.vue';
 import intervalList from '@/constants/intervalList';
 
 
 @Component({
-  components: {Types,Tabs}
+  components: {Types, Tabs}
 })
 export default class Account extends Vue {
-  template!: '#wave'
-  show = true
-  onClick( )  {
-    this.show = !this.show
+  template!: '#wave';
+  show = true;
+
+  onClick() {
+    this.show = !this.show;
     setTimeout(() => {
-      this.show = !this.show
-    }, 100) //再跳回来，状态转换true->false->true，等于点两次
+      this.show = !this.show;
+    }, 100); //再跳回来，状态转换true->false->true，等于点两次
     setTimeout(() => {
-      this.$router.replace('/money')
-    }, 400)
+      this.$router.replace('/money');
+    }, 400);
   }
 
 
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags[0].name;
   }
-  svgString(tags: Tag[]){
+
+  svgString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags[0].svg;
   }
-  typeString(tags:Tag[]){
+
+  typeString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags[0].type;
   }
 
-  timeString(tags:RecordItem[]){
+  timeString(tags: RecordItem[]) {
     console.log(tags);
   }
 
@@ -102,7 +114,7 @@ export default class Account extends Vue {
     const newList = clone(recordList)//分类->排序->按日期集合
         .sort((a, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());//对recordList进行排序，不排序时间就会乱展示
 
-    if(newList.length === 0) return [] //里面是空的时候，会导致result无法出现。渲染就出问题。
+    if (newList.length === 0) return []; //里面是空的时候，会导致result无法出现。渲染就出问题。
     type Result = { title: string, total?: number, items: RecordItem[] }[]
     const result: Result = [{title: dayjs(newList[0].createAt).format('YYYY-MM-DD HH:mm'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++) { //按照日期title集合数据
@@ -124,26 +136,30 @@ export default class Account extends Vue {
   }
 
 
-  beautify(string:string){
-    const day = dayjs(string)
-    return day.format('M月D日')
-  }
-  hour(string:string){
-    const day = dayjs(string)
-    return day.format('HH:mm')
+  beautify(string: string) {
+    const day = dayjs(string);
+    return day.format('M月D日');
   }
 
-
+  hour(string: string) {
+    const day = dayjs(string);
+    return day.format('HH:mm');
+  }
 
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
-  type = '-'
-  intervalList = intervalList
- }
+
+  type = '-';
+  intervalList = intervalList;
+}
 </script>
 
 <style lang="scss" scoped>
+.Layout {
+  position: relative;
+}
+
 .header {
   width: 100%;
   height: 20vh;
@@ -177,21 +193,22 @@ export default class Account extends Vue {
   width: 70px;
   height: 70px;
   border-radius: 50%;
-   .A{
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     background: black;
-     box-shadow: 1px 1px 1px 1px hsla(240, 0%, 100%, 0.1) inset,
-     0 0 1em rgba(0, 0, 0, 0.3);
-     position: absolute;
-     width: 70px;
-     height: 70px;
-     border-radius: 50%;
 
-   }
+  .A {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    box-shadow: 1px 1px 1px 1px hsla(240, 0%, 100%, 0.1) inset,
+    0 0 1em rgba(0, 0, 0, 0.3);
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
 
-  .bounce-enter-active{
+  }
+
+  .bounce-enter-active {
     animation: ease-out .3s;
   }
 
@@ -210,6 +227,7 @@ export default class Account extends Vue {
       transform: scale(1);
     }
   }
+
   .aaa {
     width: 30px;
     height: 20px;
@@ -234,73 +252,78 @@ export default class Account extends Vue {
   0 .5em 1em rgba(0, 0, 0, 0.35);
 }
 
-.timeLine{
+.timeLine {
   height: 63vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
   overflow: auto;
-  >.main{
+
+  > .main {
     display: flex;
     justify-content: center;
     align-items: center;
-    .title{
+
+    .title {
       width: 80vw;
       display: flex;
-      justify-content:space-between;
+      justify-content: space-between;
       align-items: center;
 
-      >span{
+      > span {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 150px;
         color: #969696;
         font-size: 12px;
-        font-family:sans-serif;
+        font-family: sans-serif;
         white-space: nowrap;
       }
 
-     >.title-dot{
-       flex: 1;
-       height: 10px;
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       position:relative;
+      > .title-dot {
+        flex: 1;
+        height: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
 
-       >.title-line{
-         position: absolute;
-         border:0.8px solid #c4c4c4;
-         width: 0;
-         height: 30px;
-         left: 50%; top: 50%;
-         transform: translate(-50%, -50%);
-         z-index: -1;
-       }
-       .dot{
-         width: 6px;
-         height: 6px;
-         border-radius:50% ;
-         background: #b3b1b1;
-       }
-     }
+        > .title-line {
+          position: absolute;
+          border: 0.8px solid #c4c4c4;
+          width: 0;
+          height: 30px;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          z-index: -1;
+        }
+
+        .dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #b3b1b1;
+        }
+      }
     }
 
-    .content{
+    .content {
       flex-direction: row;
       height: 100%;
       overflow: hidden;
-      >li{
+
+      > li {
         width: 80vw;
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 30px 0;
-        position:relative;
+        position: relative;
 
-        .content-icon{
+        .content-icon {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -310,30 +333,32 @@ export default class Account extends Vue {
           background: #79e56c;
           box-shadow: 0 0 0 0 rgb(255 255 255 / 30%) inset, 0 0.3em 1em rgb(0 0 0 / 24%);
 
-          &.changeColor{
+          &.changeColor {
             background: #9abcd2;
             box-shadow: 0 0 0 0 rgb(255 255 255 / 30%) inset, 0 0.3em 1em rgb(0 0 0 / 24%);
           }
         }
 
-        .content-line{
+        .content-line {
           position: absolute;
-          border:0.8px solid #c4c4c4;
+          border: 0.8px solid #c4c4c4;
           width: 0;
           height: 50px;
-          left: 50%; top: 2%;
+          left: 50%;
+          top: 2%;
           transform: translate(-50%, -50%);
           z-index: -1;
         }
 
 
-        .message{
-         position:absolute;
+        .message {
+          position: absolute;
           left: 80%;
           top: 50%;
           transform: translate(-50%, -50%);
           z-index: 10;
-          >span{
+
+          > span {
             white-space: nowrap;
             font-size: 11px;
             font-family: sans-serif;
@@ -343,16 +368,17 @@ export default class Account extends Vue {
             justify-content: center;
             align-items: center;
 
-            &.amount{
+            &.amount {
               color: #474747;
               font-size: 8px;
             }
           }
         }
 
-        .time{
+        .time {
           position: absolute;
-          left: 20%; top: 50%;
+          left: 20%;
+          top: 50%;
           transform: translate(-50%, -50%);
           color: #949696;
           font-family: sans-serif;
@@ -363,5 +389,30 @@ export default class Account extends Vue {
   }
 }
 
+.before-timeLine {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 30vh;
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items:center;
 
+  .tree{
+    >svg{
+      width: 50px;
+      height: 50px;
+    }
+  }
+  >span{
+    margin-top: 10px;
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #666666;
+  }
+}
 </style>
