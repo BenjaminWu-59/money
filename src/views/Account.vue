@@ -328,8 +328,8 @@ export default class Account extends Vue {
           justify-content: center;
           align-items: center;
           border-radius: 50%;
-          width: 25px;
-          height: 25px;
+          width: 30px;
+          height: 30px;
           background: #79e56c;
           box-shadow: 0 0 0 0 rgb(255 255 255 / 30%) inset, 0 0.3em 1em rgb(0 0 0 / 24%);
 
